@@ -1,32 +1,60 @@
+import abc
+from time import sleep
+import pygame
 from abc import abstractmethod, ABC
 
-class FlyBehavior(ABC):
-    def fly(self):
-        pass
+from FlyBehaviors import *
+from QuackBehaviors import *
 
-class QuackBehavior(ABC):
-    @abstractmethod
-    def quack(self):
-        ...
-    
-class SimpleQuack(QuackBehavior):
-    def quack(self):
-        print("Quack :)")
+pygame.init()
+pygame.mixer.init()
 
-# Main concrete class for dock
-class Duck:
-    flyBehavior: FlyBehavior
-    quackBehavior: QuackBehavior # Behavior Interface type
+# -=-=-=-=- Main Duck classes -=-=-=-=- #
+class Duck(ABC):
+    flyBehavior: FlyBehaviorInterface
+    quackBehavior: QuackBehaviorInterface # Behavior Interface type
     
     def performFly(self):
-        ...
+        if not isinstance(self.flyBehavior, FlyBehaviorInterface):
+            raise TypeError("QuackBehavior should be an instance of FlyBehaviorInterface")
+            
+        self.flyBehavior.fly()
         
     def performQuack(self):
-        SimpleQuack.quack()
+        if not isinstance(self.quackBehavior, QuackBehaviorInterface):
+            raise TypeError("QuackBehavior should be an instance of QuackBehaviorInterface")
+            
+        self.quackBehavior.quack()
         
+    @abstractmethod
+    def display(self):
+        ...
+    
     def swim(self):
         print("All docks can Swim")
-    
 
-dck = SimpleQuack()
-dck.quack()
+# Duck types 
+class SimpleDuck(Duck):
+    flyBehavior = FlyWithWings()
+    quackBehavior = SimpleQuack()
+    
+    def display(self):
+        print("this is a simple duck")
+        
+class RubberDuck(Duck):
+    flyBehavior = FlyNoWay()
+    quackBehavior = SquackQuack()
+    
+    def display(self):
+        print("this is a rubber duck")
+    
+    
+rubber_duck = RubberDuck()
+rubber_duck.performQuack()
+
+sleep(2)
+
+simple_duck = SimpleDuck()
+simple_duck.performQuack()
+
+
