@@ -1,13 +1,6 @@
-import abc
-from time import sleep
-import pygame
 from abc import abstractmethod, ABC
-
 from FlyBehaviors import *
 from QuackBehaviors import *
-
-pygame.init()
-pygame.mixer.init()
 
 # -=-=-=-=- Main Duck classes -=-=-=-=- #
 class Duck(ABC):
@@ -47,14 +40,23 @@ class RubberDuck(Duck):
     
     def display(self):
         print("this is a rubber duck")
+        
+class MallardDuck(Duck):
+    flyBehavior = FlyWithWings()
+    quackBehavior = MallardQuack()
     
-    
+    def display(self):
+        print("this is a Mallard duck")
+
+        
+# -=-=-=-=- Implementing Ducks -=-=-=-=- #
 rubber_duck = RubberDuck()
 rubber_duck.performQuack()
 
-sleep(2)
-
 simple_duck = SimpleDuck()
 simple_duck.performQuack()
+
+mallard_duck = MallardDuck()
+mallard_duck.performQuack()
 
 

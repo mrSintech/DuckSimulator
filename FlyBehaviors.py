@@ -11,8 +11,8 @@ class FlyBehaviorInterface(ABC):
 # sets 
 class FlyWithWings(FlyBehaviorInterface):
     def fly(self):
-        print("Flying with wings")
+        print("I'm Flying with wings!")
         
 class FlyNoWay(FlyBehaviorInterface):
     def fly(self):
-        print("dick duck cannot fly")
+        print("This Duck can't FLY")
