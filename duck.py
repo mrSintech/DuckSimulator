@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
-from FlyBehaviors import *
-from QuackBehaviors import *
+from tkinter.messagebox import NO
+from flyBehaviors import *
+from quackBehaviors import *
 
 # -=-=-=-=- Main Duck classes -=-=-=-=- #
 class Duck(ABC):
@@ -25,6 +26,12 @@ class Duck(ABC):
     
     def swim(self):
         print("All docks can Swim")
+        
+    def setQuackBehavior(self, qb):
+        self.quackBehavior = qb
+        
+    def setFlyBehavior(self, fb):
+        self.flyBehavior = fb
 
 # Duck types 
 class SimpleDuck(Duck):
@@ -48,15 +55,16 @@ class MallardDuck(Duck):
     def display(self):
         print("this is a Mallard duck")
 
-        
-# -=-=-=-=- Implementing Ducks -=-=-=-=- #
-rubber_duck = RubberDuck()
-rubber_duck.performQuack()
+class ModelDuck(Duck):
+    flyBehavior = FlyNoWay()
+    quackBehavior = MuteQuack()
+    
+    def display(self):
+        print("I'm a useless Model Duck")
 
-simple_duck = SimpleDuck()
-simple_duck.performQuack()
 
-mallard_duck = MallardDuck()
-mallard_duck.performQuack()
+
+
+
 
 

@@ -8,7 +8,7 @@ class QuackBehaviorInterface(ABC):
     def play_quack(self):
         wav_obj = sa.WaveObject.from_wave_file(self.file)
         play_obj = wav_obj.play()
-        play_obj.wait_done()
+        # play_obj.wait_done()
     
     @abstractmethod
     def quack(self):
@@ -33,7 +33,12 @@ class MallardQuack(QuackBehaviorInterface):
     file = "./static/sounds/mallardduck.wav"
     
     def quack(self):
-        return super().play_quack()
+        super().play_quack()
         print("Mallard Squack played")
+        
+class MuteQuack(QuackBehaviorInterface):
+    
+    def quack(self):
+        print("Mute Quack!")
 
     
